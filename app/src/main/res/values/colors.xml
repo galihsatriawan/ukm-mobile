@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+
+    <color name="grey_60">#666666</color>
+    <color name="grey_90">#263238</color>
+
+    <color name="colorInfo">#5DBA60</color>
+
+    <color name="textInputOutlineColor">#008577</color>
+
+</resources>

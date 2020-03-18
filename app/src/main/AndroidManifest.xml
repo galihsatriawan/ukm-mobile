@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="id.shobrun.ukmmobile">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name="id.shobrun.ukmmobile.UKMApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.MaterialTheme">
+        <activity android:name="id.shobrun.ukmmobile.ui.profile.HelpActivity"></activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.myevents.map.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name="id.shobrun.ukmmobile.ui.user.register.RegisterActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar"/>
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.user.login.LoginActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar" />
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.SplashScreen"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.myparticipants.detail.ParticipantDetailActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar" />
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.myevents.detail.ParticipantSelectionActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar" />
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.myevents.scanner.ScannerActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar" />
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.myevents.detail.EventDetailActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar" />
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.invitations.detail.InvitationDetailActivity"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar" />
+        <activity
+            android:name="id.shobrun.ukmmobile.ui.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.MaterialTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="id.shobrun.stikieventorganizer.ui.MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

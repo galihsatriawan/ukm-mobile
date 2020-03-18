@@ -1,0 +1,70 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext{
+        ankoVersion = '0.10.8'
+        androidArchVersion = "2.1.0"
+        androidActivity = '1.1.0-rc03'
+        androidFragment = '1.2.0-rc04'
+        archLifeCycle = "1.1.1"
+        androidxTest = '1.1.0'
+        androidxTestRules = '1.2.0-alpha04'
+        appcompatVersion = '1.1.0'
+        circleImgVersion = '3.0.1'
+        coreKtx = "1.2.0-rc01"
+        coroutines = "1.3.2"
+        daggerVersion = '2.24'
+        dexMakerVersion = '2.25.1'
+        espressoVersion = '3.1.1'
+        espressoIdlingVersion = '3.2.0'
+        gsonVersion = "2.8.6"
+        googleMaterial = "1.2.0-alpha03"
+        glideVersion = '4.10.0'
+        gradleVersion = '3.5.3'
+        junitVersion = '4.12'
+        kotlinVersion = '1.3.61'
+        legacyVersion = '1.0.0'
+        lifeCycle = "2.2.0-rc03"
+        lifeCycleVM = "2.1.0"
+        mapsVersion = "16.1.0"
+        mapsLocationVersion = "17.0.0"
+        mockito = "3.1.0"
+        mockitoKotlinVersion = '2.0.0-RC1'
+        mockWebServerVersion = '3.9.0'
+        multidexVersion = '1.0.3'
+        navigation = '2.1.0'
+        retrofitVersion = "2.6.1"
+        recyclerviewVersion = '1.0.0'
+        robolectricVersion = '4.3'
+        roomVersion = "2.2.3"
+        timberVersion = '4.7.1'
+        okhttp = '3.10.0'
+
+    }
+
+    repositories {
+        google()
+        jcenter()
+
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:${gradleVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

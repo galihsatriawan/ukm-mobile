@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="id.shobrun.ukmmobile.ui.myevents.detail.EventSummaryViewModel" />
+    </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_vertical_margin_xbig"
+            app:cardBackgroundColor="@android:color/background_light"
+            app:cardCornerRadius="10dp"
+            app:cardForegroundColor="@android:color/transparent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{vm.isNewEvent ? View.GONE :View.VISIBLE}">
+
+                    <ImageView
+                        android:id="@+id/logoDetail"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/ic_event" />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        style="@style/TextAppearance.AppCompat.Display1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/logoDetail"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                        android:text="@string/seo_event_summary" />
+
+                    <View
+                        android:id="@+id/vLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_below="@+id/tv_title"
+                        android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                        android:background="@color/quantum_cyanA200" />
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/vLine"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_name" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventName"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventName="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minWidth="110dp"
+                                tools:text="@string/seo_hint_event_name" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_description" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventDesc"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventDescription="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seo_hint_event_description" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_date" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventDate"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventDate="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seo_hint_event_date" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_location" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventLocation"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventLocation="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seo_hint_event_location" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_participants_total" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventParticipant"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventParticipant="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seo_hint_event_participant" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_participants_attend" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventParticipantAttend"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventParticipantAttend="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seo_hint_event_participant" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="@dimen/size_max_width_title_row"
+                                android:minWidth="@dimen/size_min_width_title_row"
+                                android:text="@string/seo_participants_not_attend" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" :  " />
+
+                            <TextView
+                                android:id="@+id/tvEventParticipantNotAttend"
+                                style="@style/TextAppearance.AppCompat.Subhead"
+                                eventParticipantNotAttend="@{vm.eventLiveData}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seo_hint_event_participant" />
+                        </TableRow>
+                    </TableLayout>
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="@{vm.loading? View.VISIBLE : View.GONE}" />
+
+                <LinearLayout
+                    android:id="@+id/container_message"
+                    visibleMessageItem="@{vm.eventLiveData}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.isNewEvent ? View.VISIBLE: View.GONE}">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="@dimen/activity_vertical_margin_small"
+                        android:contentDescription="@string/txt_content_description"
+                        android:src="@drawable/ic_error_black_24dp" />
+
+                    <TextView
+                        messageItem="@{vm.eventLiveData}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/seo_info_has_create_event" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

@@ -1,0 +1,96 @@
+<resources>
+    <string name="app_name">UKM Mobile</string>
+    <string name="title_participants">Participants</string>
+    <string name="title_events">My Events</string>
+    <string name="title_invitations">Invitations</string>
+    <string name="title_profile">Profile</string>
+    <string name="failed_load">Failed to load data</string>
+    <string name="seo_hint_participant_name">Participant Name</string>
+    <string name="seo_btn_save">Save</string>
+    <string name="seo_hint_participant_email">Participant Email</string>
+    <string name="seo_hint_participant_telp">Participant Telp</string>
+    <string name="seo_hint_participant_address">Participant Address</string>
+    <string name="tab_event">Event</string>
+    <string name="tab_participant">Participant</string>
+    <string name="seo_hint_event_name">Event Name</string>
+    <string name="seo_hint_event_description">Event Description</string>
+    <string name="seo_hint_event_date">Event Date</string>
+    <string name="seo_hint_event_location">Event Location</string>
+    <string name="seo_hint_event_cp">Contact Person</string>
+    <string name="seo_hint_username">Your Username</string>
+    <string name="seo_sign_up">Create Account</string>
+    <string name="seo_sign_in">Sign in</string>
+    <string name="seo_hint_password">Your Password</string>
+    <string name="seo_register">Register</string>
+    <string name="seo_have_account">Have Account</string>
+    <string name="seo_hint_name">Your Name</string>
+    <string name="seo_hint_email">Your Email</string>
+    <string name="seo_hint_telp">Your Phone Number</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="pref_header_about">About</string>
+    <string name="creator_email">satriawan.galih99@gmail.com</string>
+    <string name="web_institution">http://stiki.ac.id</string>
+    <string name="app_version">Version 1.0.0 \u00a9 2019</string>
+    <string name="title_version">Version</string>
+    <string name="title_institution">Institution</string>
+    <string name="creator_institution">STIKI Malang</string>
+    <string name="seo_profile_username">Username</string>
+    <string name="profile_header">Profile</string>
+    <string name="dummy_username">galihsatriawan</string>
+    <string name="seo_profile_email">Email</string>
+    <string name="dummy_email">galih@stiki.ac.id</string>
+    <string name="other_header">Other</string>
+    <string name="title_sign_out">Sign Out</string>
+    <string name="title_description">Description</string>
+    <string name="lorem_ipsum">Lorem Ipsum</string>
+    <string name="title_event_name">Event Name</string>
+    <string name="title_event_date">Event Date</string>
+    <string name="title_event_location">Location</string>
+    <string name="title_event_cp">Contact Person</string>
+    <string name="title_event_eo">Event Organizer</string>
+    <string name="CLOSE">Close</string>
+    <string name="dummy_content_text">Content</string>
+    <string name="dummy_title">Title</string>
+    <string name="YES">YES</string>
+    <string name="NO">NO</string>
+    <string name="SEARCH_IN_WEB">Search</string>
+    <string name="tipe">Tipe</string>
+    <string name="data">Data</string>
+    <string name="seo_scan">Scan</string>
+    <string name="VALIDATE">Validate</string>
+    <string name="status">Status</string>
+    <string name="ticket_detail">Ticket Detail</string>
+    <string name="id_ticket">ID Ticket</string>
+    <string name="title_camera_permission">Camera Permission</string>
+    <string name="text_camera_permission">Please give permission for camera</string>
+    <string name="OK">OK</string>
+    <string name="seo_name">Name</string>
+    <string name="seo_email">Email</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="seo_hint_your_location">Your Location</string>
+    <string name="seo_hint_detail_location">Detail Location</string>
+    <string name="seo_info_has_create_event">Please create the event first</string>
+    <string name="seo_info_check_camera">Please place your camera properly</string>
+    <string name="seo_info_not_grant_validate">You don\'t have any permission to validate</string>
+    <string name="txt_content_description">Content Description</string>
+    <string name="empty_data">No data found</string>
+    <string name="tab_summary">Summary</string>
+    <string name="seo_event_summary">Event Summary</string>
+    <string name="seo_description">Description</string>
+    <string name="seo_date">Date</string>
+    <string name="seo_location">Location</string>
+    <string name="seo_participants_total">Participants</string>
+    <string name="seo_hint_event_participant">Event Participant</string>
+    <string name="seo_participants_attend">Attendance</string>
+    <string name="seo_participants_not_attend">Absence</string>
+    <string name="seo_info_not_the_event">The Event is different</string>
+    <string name="seo_tap_to_show">Tap to show</string>
+    <string name="seo_success_login">Login Successfully</string>
+    <string name="seo_register_success">Register Successfully</string>
+    <string name="seo_hint_confirm_password">Confirm Password</string>
+</resources>

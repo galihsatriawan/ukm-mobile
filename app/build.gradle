@@ -1,0 +1,178 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: "androidx.navigation.safeargs"
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'id.shobrun.footballleague.testing.OpenClass'
+}
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId 'id.shobrun.ukmmobile'
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName '1.0.0'
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+        debug {
+//            signingConfig signingConfigs.debug
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+    testOptions {
+        unitTests.includeAndroidResources true
+        unitTests.returnDefaultValues = true
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    androidExtensions {
+        experimental = true
+    }
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+    //anko
+    implementation "org.jetbrains.anko:anko:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-sqlite:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-design:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-recyclerview-v7:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-recyclerview-v7-coroutines:$ankoVersion"
+    implementation "androidx.recyclerview:recyclerview-selection:$recyclerviewVersion"
+    // Anko Commons
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
+    // CardView-v7
+    implementation "org.jetbrains.anko:anko-cardview-v7:$ankoVersion"
+
+    /*
+        LifeCycle
+     */
+    implementation "androidx.legacy:legacy-support-v4:$legacyVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleVM"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVM"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycle"
+    implementation "android.arch.lifecycle:runtime:$archLifeCycle"
+    implementation "androidx.legacy:legacy-support-v4:$legacyVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation "com.google.android.gms:play-services-maps:$mapsVersion"
+    implementation "com.google.android.gms:play-services-location:$mapsLocationVersion"
+    implementation "com.google.android.gms:play-services-places:$mapsLocationVersion"
+    implementation "com.google.android.libraries.places:places:1.1.0"
+    annotationProcessor "android.arch.lifecycle:common-java8:$archLifeCycle"
+    androidTestImplementation "androidx.arch.core:core-testing:$androidArchVersion"
+    testImplementation "androidx.arch.core:core-testing:$androidArchVersion"
+    /*
+        Design View
+     */
+    implementation "de.hdodenhof:circleimageview:$circleImgVersion"
+    implementation "com.google.android.material:material:$googleMaterial"
+    // Network library
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
+    /**
+     * Dagger Dependencies
+     */
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    /*
+        Image Loader
+     */
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    /**
+     * Room
+     */
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    // Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    /**
+     * Tools
+     */
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation "androidx.activity:activity:$androidActivity"
+    implementation "androidx.activity:activity-ktx:$androidActivity"
+    implementation "androidx.fragment:fragment:$androidFragment"
+    implementation "androidx.fragment:fragment-ktx:$androidFragment"
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    /**
+     * Unit Test
+     */
+
+    testImplementation "androidx.test:core:$androidxTest"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
+
+    testImplementation "org.mockito:mockito-inline:$mockito"
+    testImplementation "org.mockito:mockito-core:$mockito"
+    // For instrumentation tests on Android devices and emulators
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+    /**
+     * QR Code
+     */
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    /**
+     * Map Box
+     */
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.0'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoIdlingVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxTest"
+    androidTestImplementation "androidx.test:rules:$androidxTestRules"
+    implementation "com.android.support:multidex:$multidexVersion"
+    testImplementation "junit:junit:$junitVersion"
+}

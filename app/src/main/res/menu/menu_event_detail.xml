@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/scan"
+        android:icon="@drawable/ic_scan_qr"
+        android:iconifiedByDefault="false"
+        android:title="@string/seo_scan"
+        app:showAsAction="ifRoom" />
+</menu>

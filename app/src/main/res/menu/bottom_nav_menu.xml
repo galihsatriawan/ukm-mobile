@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_invitations"
+        android:icon="@drawable/ic_invitations_black"
+        android:title="@string/title_invitations" />
+
+    <item
+        android:id="@+id/navigation_events"
+        android:icon="@drawable/ic_event_black"
+        android:title="@string/title_events" />
+
+    <item
+        android:id="@+id/navigation_participants"
+        android:icon="@drawable/ic_participants"
+        android:title="@string/title_participants" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_contact_black"
+        android:title="@string/title_profile" />
+</menu>
