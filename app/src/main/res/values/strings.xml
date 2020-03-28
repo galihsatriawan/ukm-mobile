@@ -12,6 +12,8 @@
     <string name="seo_hint_participant_address">Participant Address</string>
     <string name="tab_event">Event</string>
     <string name="tab_participant">Participant</string>
+    <string name="tab_sign_in">Login</string>
+    <string name="tab_sign_up">Register</string>
     <string name="seo_hint_event_name">Event Name</string>
     <string name="seo_hint_event_description">Event Description</string>
     <string name="seo_hint_event_date">Event Date</string>
@@ -93,4 +95,7 @@
     <string name="seo_success_login">Login Successfully</string>
     <string name="seo_register_success">Register Successfully</string>
     <string name="seo_hint_confirm_password">Confirm Password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

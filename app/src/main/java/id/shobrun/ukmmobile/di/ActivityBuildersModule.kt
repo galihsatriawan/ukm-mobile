@@ -33,8 +33,6 @@ import id.shobrun.ukmmobile.ui.myevents.detail.EventDetailActivity
 import id.shobrun.ukmmobile.ui.myevents.detail.ParticipantSelectionActivity
 import id.shobrun.ukmmobile.ui.myevents.scanner.ScannerActivity
 import id.shobrun.ukmmobile.ui.myparticipants.detail.ParticipantDetailActivity
-import id.shobrun.ukmmobile.ui.user.login.LoginActivity
-import id.shobrun.ukmmobile.ui.user.register.RegisterActivity
 
 
 @Module
@@ -97,28 +95,6 @@ abstract class ActivityBuildersModule {
         ]
     )
     abstract fun injectParticipantDetailActivity(): ParticipantDetailActivity
-
-    @ContributesAndroidInjector(
-        modules = [
-            LoginModule::class,
-            LoginViewModelModule::class,
-            UserNetworkModule::class,
-            UserPersistenceModule::class,
-            UserRepositoryModule::class
-        ]
-    )
-    abstract fun injectLoginActivity(): LoginActivity
-
-    @ContributesAndroidInjector(
-        modules = [
-            RegisterModule::class,
-            RegisterViewModelModule::class,
-            UserNetworkModule::class,
-            UserPersistenceModule::class,
-            UserRepositoryModule::class
-        ]
-    )
-    abstract fun injectRegisterActivity(): RegisterActivity
 
     @ContributesAndroidInjector
     abstract fun injectSplashScreenActivity(): SplashScreen

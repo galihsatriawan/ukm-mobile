@@ -11,7 +11,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import dagger.android.support.DaggerFragment
 import id.shobrun.ukmmobile.R
-import id.shobrun.ukmmobile.ui.user.login.LoginActivity
+import id.shobrun.ukmmobile.ui.user.UserSignActivity
 import id.shobrun.ukmmobile.utils.Helper.openBrowser
 import id.shobrun.ukmmobile.utils.Helper.sendEmail
 import id.shobrun.ukmmobile.utils.SharedPref
@@ -73,7 +73,7 @@ class ProfileFragment : DaggerFragment() {
 
             signoutPreference = preferenceManager.findPreference<Preference>("signout")!!
             signoutPreference.setOnPreferenceClickListener {
-                var signin = intentFor<LoginActivity>()
+                var signin = intentFor<UserSignActivity>()
                 startActivity(signin)
                 requireActivity().finish()
                 true

@@ -100,15 +100,5 @@
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_signup"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:enabled="@{!vm.loading}"
-            android:onClick="@{()-> vm.clickRegister()}"
-            android:text="@string/seo_sign_up" />
     </RelativeLayout>
 </layout>

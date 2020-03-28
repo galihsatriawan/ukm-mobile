@@ -21,8 +21,12 @@ import id.shobrun.ukmmobile.di.participant.list.ParticipantFragmentViewModelModu
 import id.shobrun.ukmmobile.di.user.UserNetworkModule
 import id.shobrun.ukmmobile.di.user.UserPersistenceModule
 import id.shobrun.ukmmobile.di.user.UserRepositoryModule
+import id.shobrun.ukmmobile.di.user.login.LoginModule
+import id.shobrun.ukmmobile.di.user.login.LoginViewModelModule
 import id.shobrun.ukmmobile.di.user.profile.ProfileModule
 import id.shobrun.ukmmobile.di.user.profile.ProfileViewModelModule
+import id.shobrun.ukmmobile.di.user.register.RegisterModule
+import id.shobrun.ukmmobile.di.user.register.RegisterViewModelModule
 import id.shobrun.ukmmobile.ui.invitations.InvitationsFragment
 import id.shobrun.ukmmobile.ui.myevents.MyEventsFragment
 import id.shobrun.ukmmobile.ui.myevents.detail.EventDetailFragment
@@ -30,6 +34,8 @@ import id.shobrun.ukmmobile.ui.myevents.detail.EventSummaryFragment
 import id.shobrun.ukmmobile.ui.myevents.detail.ParticipantEventFragment
 import id.shobrun.ukmmobile.ui.myparticipants.MyParticipantsFragment
 import id.shobrun.ukmmobile.ui.profile.ProfileFragment
+import id.shobrun.ukmmobile.ui.user.login.LoginFragment
+import id.shobrun.ukmmobile.ui.user.register.RegisterFragment
 
 @Module
 abstract class FragmentBuildersModule {
@@ -122,5 +128,27 @@ abstract class FragmentBuildersModule {
         ]
     )
     abstract fun injectProfileFragment(): ProfileFragment
+
+    @ContributesAndroidInjector(
+        modules = [
+            LoginModule::class,
+            LoginViewModelModule::class,
+            UserNetworkModule::class,
+            UserPersistenceModule::class,
+            UserRepositoryModule::class
+        ]
+    )
+    abstract fun injectLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector(
+        modules = [
+            RegisterModule::class,
+            RegisterViewModelModule::class,
+            UserNetworkModule::class,
+            UserPersistenceModule::class,
+            UserRepositoryModule::class
+        ]
+    )
+    abstract fun injectRegisterFragment(): RegisterFragment
 
 }

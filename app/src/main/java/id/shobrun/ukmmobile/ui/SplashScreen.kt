@@ -5,7 +5,7 @@ import android.os.Handler
 import android.widget.ProgressBar
 import dagger.android.support.DaggerAppCompatActivity
 import id.shobrun.ukmmobile.R
-import id.shobrun.ukmmobile.ui.user.login.LoginActivity
+import id.shobrun.ukmmobile.ui.user.UserSignActivity
 import id.shobrun.ukmmobile.utils.SharedPref
 import id.shobrun.ukmmobile.utils.SharedPref.Companion.PREFS_IS_LOGIN
 import org.jetbrains.anko.intentFor
@@ -50,7 +50,7 @@ class SplashScreen : DaggerAppCompatActivity() {
             startActivity(mainContent)
             finish()
         } else {
-            val mainContent = intentFor<LoginActivity>()
+            val mainContent = intentFor<UserSignActivity>()
             startActivity(mainContent)
             finish()
         }
