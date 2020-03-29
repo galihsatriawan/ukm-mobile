@@ -11,12 +11,13 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = TABLE_USER)
 data class User(
     @PrimaryKey
-    @SerializedName("USER_ID") var user_id: Int?,
-    @SerializedName("USER_USERNAME") var user_username: String,
-    @SerializedName("USER_EMAIL") var user_email: String,
-    @SerializedName("USER_NAME") var user_name: String,
-    @SerializedName("USER_TELP") var user_telp: String?,
-    @SerializedName("USER_ADDRESS") var user_address: String?,
-    @SerializedName("USER_PASSWORD") var user_password: String,
-    @SerializedName("IS_ACTIVE") var is_active: Boolean
+    @SerializedName("id") var user_id: Int?,
+    @SerializedName("username") var user_username: String,
+    @SerializedName("email") var user_email: String,
+    @SerializedName("profile_id") var user_profile_id:Int,
+    @SerializedName("role_id") var user_role_id: Int?,
+    @SerializedName("role_value") var user_role_value: String,
+    @SerializedName("createdAt") var createdAt : String?,
+    @SerializedName("updateAt") var updateAt : String?
+
 ) : Parcelable

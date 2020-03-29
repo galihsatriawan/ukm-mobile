@@ -39,6 +39,9 @@ abstract class AppDatabase : RoomDatabase() {
         const val TABLE_USER = "user_table"
         const val ID_USER = "user_id"
 
+        const val TABLE_PROFILE = "profile_table"
+        const val ID_PROFILE = "profile_id"
+
         const val TABLE_PARTICIPANT_INVITATION = "participant_invitation_table"
         // For Singleton instantiation
         @Volatile

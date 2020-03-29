@@ -10,7 +10,7 @@ import retrofit2.http.POST
 
 interface UserApi {
     @POST("user/login")
-    fun loginUser(@Body data: HashMap<String, String>): LiveData<ApiResponse<UsersResponse>>
+    fun loginUser(@Body data: HashMap<String, Any>): LiveData<ApiResponse<UsersResponse>>
 
     @POST("user/register")
     fun registerUser(@Body data: HashMap<String, User>): LiveData<ApiResponse<UsersResponse>>
