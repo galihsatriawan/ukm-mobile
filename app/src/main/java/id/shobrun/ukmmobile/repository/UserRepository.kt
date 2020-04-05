@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import id.shobrun.ukmmobile.AppExecutors
 import id.shobrun.ukmmobile.api.ApiResponse
 import id.shobrun.ukmmobile.api.UserApi
+import id.shobrun.ukmmobile.models.entity.Profile
+import id.shobrun.ukmmobile.models.entity.Role
 import id.shobrun.ukmmobile.models.entity.User
 import id.shobrun.ukmmobile.models.network.UsersResponse
+import id.shobrun.ukmmobile.room.ProfileDao
 import id.shobrun.ukmmobile.room.UserDao
 import id.shobrun.ukmmobile.transporter.UserResponseTransporter
 import id.shobrun.ukmmobile.utils.Helper.md5
@@ -16,33 +19,41 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(
     val apiService: UserApi,
     val localDB: UserDao,
+    val profileDB: ProfileDao,
     val appExecutors: AppExecutors
 ) {
     @Inject
     lateinit var tools: Tools
 
-    fun loginUser(username: String, password: String) = object :
-        NetworkBoundRepository<List<User>, UsersResponse, UserResponseTransporter>(appExecutors) {
+    fun loginUser(email: String, password: String) = object :
+        NetworkBoundRepository<List<Profile>, UsersResponse, UserResponseTransporter>(appExecutors) {
         override fun saveFetchData(items: UsersResponse) {
             Timber.d("${items.message} ${items.status}")
-            if (!items.result.isNullOrEmpty()) {
-                localDB.deleteByEmail(username)
-                localDB.insert(items.result[0])
+            var role: Role? = items.result_role
+            var profile: Profile? = items.result_profile
+            if (profile != null) {
+                profileDB.deleteByEmail(email)
+
+                profile.user_email = email
+                profile.role_id = role?.id
+
+                profileDB.insert(profile)
             }
+
         }
 
-        override fun shouldFetch(data: List<User>?): Boolean {
+        override fun shouldFetch(data: List<Profile>?): Boolean {
             return true
         }
 
-        override fun loadFromDb(): LiveData<List<User>> {
-            return localDB.getDetailUserByUsername(username, md5(md5(password)))
+        override fun loadFromDb(): LiveData<List<Profile>> {
+            return profileDB.getProfileDetail(email)
         }
 
         override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
             val data = hashMapOf(
-                "username" to username,
-                "password" to md5(password)
+                "email" to email,
+                "password" to password
             )
             return apiService.loginUser(data)
         }

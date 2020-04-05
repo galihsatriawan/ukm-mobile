@@ -14,10 +14,12 @@ data class Profile (
     @SerializedName("id") val profile_id : Int?,
     var firstName : String?,
     var lastName : String?,
-    @SerializedName("yearGeneration") var yearGeneration : String?,
+    @SerializedName("year_generation") var yearGeneration : String?,
     var phone : String?,
     var status : Boolean = true,
-    @SerializedName("imgProfile") var imgProfile : String?,
-    @SerializedName("createdAt") var createdAt : String?,
-    @SerializedName("updateAt") var updateAt : String?
+    @SerializedName("img_profile") var imgProfile : String?,
+    @SerializedName("created_at") var createdAt : String?,
+    @SerializedName("update_at") var updateAt : String?,
+    var role_id: Int?,
+    var user_email: String?
     ) : Parcelable

@@ -56,7 +56,7 @@ class LoginFragment : DaggerFragment() {
         viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it) {
-                    Toast.makeText(context,getString(R.string.seo_success_login), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,getString(R.string.ukm_success_login), Toast.LENGTH_SHORT).show()
                     val mainContent = intentFor<MainActivity>()
                     startActivity(mainContent)
                 }

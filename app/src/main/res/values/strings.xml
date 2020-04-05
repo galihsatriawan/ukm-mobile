@@ -19,7 +19,7 @@
     <string name="seo_hint_event_date">Event Date</string>
     <string name="seo_hint_event_location">Event Location</string>
     <string name="seo_hint_event_cp">Contact Person</string>
-    <string name="seo_hint_username">Your Username</string>
+    <string name="ukm_hint_username">Your Username/Email</string>
     <string name="seo_sign_up">Create Account</string>
     <string name="seo_sign_in">Sign in</string>
     <string name="seo_hint_password">Your Password</string>
@@ -92,7 +92,7 @@
     <string name="seo_participants_not_attend">Absence</string>
     <string name="seo_info_not_the_event">The Event is different</string>
     <string name="seo_tap_to_show">Tap to show</string>
-    <string name="seo_success_login">Login Successfully</string>
+    <string name="ukm_success_login">Login Successfully</string>
     <string name="seo_register_success">Register Successfully</string>
     <string name="seo_hint_confirm_password">Confirm Password</string>
 

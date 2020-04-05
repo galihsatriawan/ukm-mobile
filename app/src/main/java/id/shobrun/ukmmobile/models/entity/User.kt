@@ -13,6 +13,7 @@ data class User(
     @PrimaryKey
     @SerializedName("id") var user_id: Int?,
     @SerializedName("username") var user_username: String,
+    @SerializedName("password") var user_password: String,
     @SerializedName("email") var user_email: String,
     @SerializedName("profile_id") var user_profile_id:Int,
     @SerializedName("role_id") var user_role_id: Int?,
