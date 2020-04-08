@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import id.shobrun.ukmmobile.models.Resource
 import id.shobrun.ukmmobile.models.Status
+import id.shobrun.ukmmobile.models.entity.Profile
 import id.shobrun.ukmmobile.models.entity.User
+import id.shobrun.ukmmobile.models.network.ProfileResponse
 import id.shobrun.ukmmobile.models.network.UsersResponse
 import id.shobrun.ukmmobile.repository.UserRepository
 import id.shobrun.ukmmobile.utils.AbsentLiveData
@@ -29,7 +31,7 @@ class LoginViewModel @Inject constructor(repository: UserRepository, sharedPref:
     val isSuccess = MutableLiveData<Boolean>()
     private val _snackbarText = MutableLiveData<String>()
     val snackbarText: LiveData<String> = _snackbarText
-    val loginRespons: LiveData<Resource<List<User>, UsersResponse>>
+    val loginRespons: LiveData<Resource<Profile, ProfileResponse>>
 
     init {
         /**
@@ -52,15 +54,14 @@ class LoginViewModel @Inject constructor(repository: UserRepository, sharedPref:
             if (!isLoading) {
                 if (it.status == Status.ERROR) _snackbarText.value = "Please Check Your Connection"
                 else _snackbarText.value = it.message ?: it.additionalData?.message
-                if (!it.data.isNullOrEmpty()) {
+                if (it.data != null) {
                     isSuccess.value = true
                     /**
                      * Login
                      */
                     sharedPref.setValue(PREFS_IS_LOGIN, true)
-                    sharedPref.setValue(PREFS_USER_ID, it.data[0].user_id)
-                    sharedPref.setValue(PREFS_USER_USERNAME, it.data[0].user_username)
-                    sharedPref.setValue(PREFS_USER_EMAIL, it.data[0].user_email)
+                    sharedPref.setValue(PREFS_USER_ID, it.data.profile_id)
+                    sharedPref.setValue(PREFS_USER_EMAIL, it.data.user_email)
                 }
             }
             MutableLiveData(isLoading)

@@ -7,9 +7,11 @@ import id.shobrun.ukmmobile.api.UserApi
 import id.shobrun.ukmmobile.models.entity.Profile
 import id.shobrun.ukmmobile.models.entity.Role
 import id.shobrun.ukmmobile.models.entity.User
+import id.shobrun.ukmmobile.models.network.ProfileResponse
 import id.shobrun.ukmmobile.models.network.UsersResponse
 import id.shobrun.ukmmobile.room.ProfileDao
 import id.shobrun.ukmmobile.room.UserDao
+import id.shobrun.ukmmobile.transporter.ProfileResponseTransporter
 import id.shobrun.ukmmobile.transporter.UserResponseTransporter
 import id.shobrun.ukmmobile.utils.Helper.md5
 import id.shobrun.ukmmobile.utils.Tools
@@ -26,8 +28,8 @@ class UserRepository @Inject constructor(
     lateinit var tools: Tools
 
     fun loginUser(email: String, password: String) = object :
-        NetworkBoundRepository<List<Profile>, UsersResponse, UserResponseTransporter>(appExecutors) {
-        override fun saveFetchData(items: UsersResponse) {
+        NetworkBoundRepository<Profile, ProfileResponse, ProfileResponseTransporter>(appExecutors) {
+        override fun saveFetchData(items: ProfileResponse) {
             Timber.d("${items.message} ${items.status}")
             var role: Role? = items.result_role
             var profile: Profile? = items.result_profile
@@ -42,15 +44,15 @@ class UserRepository @Inject constructor(
 
         }
 
-        override fun shouldFetch(data: List<Profile>?): Boolean {
+        override fun shouldFetch(data: Profile?): Boolean {
             return true
         }
 
-        override fun loadFromDb(): LiveData<List<Profile>> {
+        override fun loadFromDb(): LiveData<Profile> {
             return profileDB.getProfileDetail(email)
         }
 
-        override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
+        override fun fetchService(): LiveData<ApiResponse<ProfileResponse>> {
             val data = hashMapOf(
                 "email" to email,
                 "password" to password
@@ -58,8 +60,8 @@ class UserRepository @Inject constructor(
             return apiService.loginUser(data)
         }
 
-        override fun transporter(): UserResponseTransporter {
-            return UserResponseTransporter()
+        override fun transporter(): ProfileResponseTransporter {
+            return ProfileResponseTransporter()
         }
 
         override fun onFetchFailed(message: String?) {
@@ -68,12 +70,12 @@ class UserRepository @Inject constructor(
 
     }.asLiveData()
 
-    fun registerUser(user: User) = object :
+    fun registerUser(user: User,profile: Profile) = object :
         NetworkBoundRepository<List<User>, UsersResponse, UserResponseTransporter>(appExecutors) {
         override fun saveFetchData(items: UsersResponse) {
-            if (!items.result.isNullOrEmpty()) {
-                Timber.d("${items.result[0]}")
-                localDB.insert(items.result[0])
+            if (items.result !=null ) {
+                Timber.d("${items.result}")
+                localDB.insert(items.result)
             }
         }
 
@@ -82,14 +84,17 @@ class UserRepository @Inject constructor(
         }
 
         override fun loadFromDb(): LiveData<List<User>> {
-            return localDB.getDetailUserByUsername(user.user_username, md5(md5(user.user_password)))
+            return localDB.getDetailUserByEmail(user.user_email)
         }
 
         override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
             val tempUser = user.copy()
-            tempUser.user_password = md5(user.user_password)
+            val tempProfile = profile.copy()
             val data = hashMapOf(
-                "user" to tempUser
+                "email" to tempUser.user_email,
+                "password" to tempUser.user_password,
+                "role_id" to tempUser.user_role_id,
+                "userprofile" to tempProfile
             )
             return apiService.registerUser(data)
         }
