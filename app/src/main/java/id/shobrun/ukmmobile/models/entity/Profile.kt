@@ -11,15 +11,16 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = TABLE_PROFILE)
 data class Profile (
     @PrimaryKey
-    @SerializedName("id") val profile_id : Int?,
+    val id : Int?,
     var firstName : String?,
     var lastName : String?,
-    @SerializedName("year_generation") var yearGeneration : String?,
+    @SerializedName("year_generation")var yearGeneration : String?,
     var phone : String?,
     var status : Boolean = true,
+    var jk: String?,
     @SerializedName("img_profile") var imgProfile : String?,
     @SerializedName("created_at") var createdAt : String?,
     @SerializedName("update_at") var updateAt : String?,
-    var role_id: Int?,
-    var user_email: String?
+    @SerializedName("role_id")var roleId: Int?,
+    var email: String?
     ) : Parcelable

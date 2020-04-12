@@ -1,17 +1,19 @@
 package id.shobrun.ukmmobile.repository
 
 import androidx.lifecycle.LiveData
+import com.google.gson.Gson
 import id.shobrun.ukmmobile.AppExecutors
 import id.shobrun.ukmmobile.api.ApiResponse
 import id.shobrun.ukmmobile.api.UserApi
 import id.shobrun.ukmmobile.models.entity.Profile
 import id.shobrun.ukmmobile.models.entity.Role
 import id.shobrun.ukmmobile.models.entity.User
+import id.shobrun.ukmmobile.models.network.ProfileResponse
 import id.shobrun.ukmmobile.models.network.UsersResponse
 import id.shobrun.ukmmobile.room.ProfileDao
 import id.shobrun.ukmmobile.room.UserDao
+import id.shobrun.ukmmobile.transporter.ProfileResponseTransporter
 import id.shobrun.ukmmobile.transporter.UserResponseTransporter
-import id.shobrun.ukmmobile.utils.Helper.md5
 import id.shobrun.ukmmobile.utils.Tools
 import timber.log.Timber
 import javax.inject.Inject
@@ -26,40 +28,41 @@ class UserRepository @Inject constructor(
     lateinit var tools: Tools
 
     fun loginUser(email: String, password: String) = object :
-        NetworkBoundRepository<List<Profile>, UsersResponse, UserResponseTransporter>(appExecutors) {
-        override fun saveFetchData(items: UsersResponse) {
+        NetworkBoundRepository<Profile, ProfileResponse, ProfileResponseTransporter>(appExecutors) {
+        override fun saveFetchData(items: ProfileResponse) {
             Timber.d("${items.message} ${items.status}")
             var role: Role? = items.result_role
             var profile: Profile? = items.result_profile
             if (profile != null) {
                 profileDB.deleteByEmail(email)
 
-                profile.user_email = email
-                profile.role_id = role?.id
+                profile.email = email
+                profile.roleId = role?.id
 
                 profileDB.insert(profile)
             }
 
         }
 
-        override fun shouldFetch(data: List<Profile>?): Boolean {
+        override fun shouldFetch(data: Profile?): Boolean {
             return true
         }
 
-        override fun loadFromDb(): LiveData<List<Profile>> {
+        override fun loadFromDb(): LiveData<Profile> {
             return profileDB.getProfileDetail(email)
         }
 
-        override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
+        override fun fetchService(): LiveData<ApiResponse<ProfileResponse>> {
             val data = hashMapOf(
                 "email" to email,
                 "password" to password
             )
+            Timber.d(Gson().toJson(data))
             return apiService.loginUser(data)
         }
 
-        override fun transporter(): UserResponseTransporter {
-            return UserResponseTransporter()
+        override fun transporter(): ProfileResponseTransporter {
+            return ProfileResponseTransporter()
         }
 
         override fun onFetchFailed(message: String?) {
@@ -68,29 +71,33 @@ class UserRepository @Inject constructor(
 
     }.asLiveData()
 
-    fun registerUser(user: User) = object :
-        NetworkBoundRepository<List<User>, UsersResponse, UserResponseTransporter>(appExecutors) {
+    fun registerUser(user: User,profile: Profile) = object :
+        NetworkBoundRepository<User, UsersResponse, UserResponseTransporter>(appExecutors) {
         override fun saveFetchData(items: UsersResponse) {
-            if (!items.result.isNullOrEmpty()) {
-                Timber.d("${items.result[0]}")
-                localDB.insert(items.result[0])
+            if (items.result !=null ) {
+                Timber.d("${items.result}")
+                localDB.insert(items.result)
             }
         }
 
-        override fun shouldFetch(data: List<User>?): Boolean {
+        override fun shouldFetch(data: User?): Boolean {
             return true
         }
 
-        override fun loadFromDb(): LiveData<List<User>> {
-            return localDB.getDetailUserByUsername(user.user_username, md5(md5(user.user_password)))
+        override fun loadFromDb(): LiveData<User> {
+            return localDB.getDetailUserByEmail(user.email!!)
         }
 
         override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
-            val tempUser = user.copy()
-            tempUser.user_password = md5(user.user_password)
             val data = hashMapOf(
-                "user" to tempUser
+                "userprofile" to profile,
+                "id" to null,
+                "email" to user.email,
+                "password" to user.password,
+                "role_id" to user.roleId
             )
+            Timber.d(Gson().toJson(data))
+
             return apiService.registerUser(data)
         }
 

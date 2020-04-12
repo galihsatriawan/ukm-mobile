@@ -6,65 +6,65 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import id.shobrun.ukmmobile.models.Resource
 import id.shobrun.ukmmobile.models.Status
+import id.shobrun.ukmmobile.models.entity.Profile
 import id.shobrun.ukmmobile.models.entity.User
 import id.shobrun.ukmmobile.models.network.UsersResponse
 import id.shobrun.ukmmobile.repository.UserRepository
 import id.shobrun.ukmmobile.utils.AbsentLiveData
+import id.shobrun.ukmmobile.utils.Helper
 import id.shobrun.ukmmobile.utils.Helper.isValidEmail
 import timber.log.Timber
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewModel() {
-    val name = MutableLiveData<String>()
-    val username = MutableLiveData<String>()
+    val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val confirmPassword = MutableLiveData<String>()
-    val email = MutableLiveData<String>()
+    val firstName = MutableLiveData<String>()
+    val lastName = MutableLiveData<String>()
     val telp = MutableLiveData<String>()
-    val address = MutableLiveData<String>()
     val registerAction = MutableLiveData<Boolean>()
     val loginAction = MutableLiveData<Boolean>()
     private val _snackbarText = MutableLiveData<String>()
     private val userMutable = MutableLiveData<User>()
+    private val profileMutable = MutableLiveData<Profile>()
     val snackbarText: LiveData<String> = _snackbarText
     val loading: LiveData<Boolean>
     val isSuccess = MutableLiveData<Boolean>()
-    val registerResponse: LiveData<Resource<List<User>, UsersResponse>>
+    val registerResponse: LiveData<Resource<User, UsersResponse>>
 
     init {
-        registerResponse = userMutable.switchMap {
-            userMutable.value?.let {
-                repository.registerUser(it)
+        registerResponse = profileMutable.switchMap {
+            userMutable.value?.let {user ->
+                profileMutable.value?.let {profile ->
+                    repository.registerUser(user,profile)
+                }
+
             } ?: AbsentLiveData.create()
         }
         loading = registerResponse.switchMap {
-            var isLoading = it.status == Status.LOADING
+            var isLoading = true
+            if(it!=null) isLoading= it.status == Status.LOADING
             if (!isLoading) {
                 Timber.d("${it.message ?: it.additionalData?.message}")
                 if (it.status == Status.ERROR) _snackbarText.value = "Please Check Your Connection"
                 else _snackbarText.value = it.additionalData?.message
-                if (!it.data.isNullOrEmpty()) isSuccess.value = true
-                Timber.d("${it.data?.size}")
+                if (it.data != null) isSuccess.value = true
+                Timber.d("${it.data}")
             }
             MutableLiveData(isLoading)
         }
     }
 
     fun clickRegisterUser() {
-        val currentName = name.value
-        val currentUsername = username.value
+        val currentFirstName= firstName.value
+        val currentLastName = lastName.value
         val currentPassword = password.value
         val currentEmail = email.value
         val currentTelp = telp.value
-        val currentConfirmPassword = confirmPassword.value
-//        val currentAddress = address.value
 
-        if (currentName.isNullOrEmpty() || currentPassword.isNullOrEmpty() || currentUsername.isNullOrEmpty() || currentEmail.isNullOrEmpty() || currentTelp.isNullOrEmpty() || currentConfirmPassword.isNullOrEmpty()) {
+        if (currentFirstName.isNullOrEmpty() ||currentLastName.isNullOrEmpty() || currentPassword.isNullOrEmpty() || currentEmail.isNullOrEmpty() || currentTelp.isNullOrEmpty()) {
             _snackbarText.value = "Please fill completely"
-            return
-        }
-        if(currentPassword!=currentConfirmPassword){
-            _snackbarText.value = "Your password must be match"
             return
         }
         if(isValidEmail(currentEmail).isNullOrEmpty()) {
@@ -75,15 +75,34 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
         else registerAction.value = !registerAction.value!!
         val user = User(
             null,
-            currentUsername,
             currentEmail,
-            currentName,
-            currentTelp,
-            "",
             currentPassword,
-            true
+            currentEmail,
+            Helper.getNRPByEmail(currentEmail),
+            1,
+            "USER",
+            Helper.getCurrentDatetime(),
+            Helper.getCurrentDatetime()
         )
+
+        val profile = Profile(
+            Helper.getNRPByEmail(currentEmail),
+            currentFirstName,
+            currentLastName,
+            currentEmail.subSequence(0,1).toString(),
+            currentTelp,
+            true,
+            "Male",
+            "",
+            null,
+            null,
+            1,
+            currentEmail
+        )
+        Timber.d(user.toString())
+        Timber.d(profile.toString())
         userMutable.value = user
+        profileMutable.value = profile
     }
 
     fun clickLogin() {

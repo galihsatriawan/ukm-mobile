@@ -49,7 +49,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin_big"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:enabled="@{!vm.loading}"
-                    android:hint="@string/ukm_hint_username"
+                    android:hint="@string/ukm_hint_email"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -57,7 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textAutoComplete"
-                        android:text="@={vm.username}" />
+                        android:text="@={vm.email}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

@@ -7,8 +7,8 @@ import id.shobrun.ukmmobile.room.AppDatabase.Companion.TABLE_PROFILE
 
 @Dao
 interface ProfileDao {
-    @Query("SELECT * FROM $TABLE_PROFILE WHERE USER_EMAIL = :email")
-    fun getProfileDetail(email:String) : LiveData<List<Profile>>
+    @Query("SELECT * FROM $TABLE_PROFILE WHERE EMAIL = :email")
+    fun getProfileDetail(email:String) : LiveData<Profile>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(profile: Profile)
@@ -17,8 +17,8 @@ interface ProfileDao {
     fun update(profile: Profile): Int
 
     @Delete
-    fun delete(id:Int)
+    fun delete(profile: Profile)
 
-    @Query("DELETE FROM $TABLE_PROFILE WHERE USER_EMAIL = :email")
+    @Query("DELETE FROM $TABLE_PROFILE WHERE EMAIL = :email")
     fun deleteByEmail(email: String)
 }

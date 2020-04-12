@@ -22,7 +22,8 @@ object Helper {
     const val TELP = "TELP"
     const val LOC = "LOC"
 
-
+    fun split(data:String,splitter:String,index:Int) = data.split(splitter)[index]
+    fun getNRPByEmail(email:String) = Integer.parseInt(split(email,"@",0))
     fun getTimeStamp() = Timestamp(System.currentTimeMillis()).time
     fun getCurrentDatetime() :String{
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
@@ -103,6 +104,11 @@ object Helper {
         return intent
     }
     fun isValidEmail(target: CharSequence): String {
+        try {
+            Integer.parseInt(target.split("@")[0])
+        }catch (e: Throwable){
+            return ""
+        }
         return if (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()) EMAIL else ""
     }
 

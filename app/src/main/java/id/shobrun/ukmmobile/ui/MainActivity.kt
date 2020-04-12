@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
         bottom_navigation.selectedItemId = currentSelectItemId
-        simpleToolbarWithoutHome(toolbar, "STIKI EVENT ORGANIZER")
+        simpleToolbarWithoutHome(toolbar, getString(R.string.app_name))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
