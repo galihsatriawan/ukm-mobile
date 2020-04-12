@@ -18,6 +18,7 @@ import id.shobrun.ukmmobile.di.participant.ParticipantPersistenceModule
 import id.shobrun.ukmmobile.di.participant.ParticipantRepositoryModule
 import id.shobrun.ukmmobile.di.participant.list.ParticipantFragmentModule
 import id.shobrun.ukmmobile.di.participant.list.ParticipantFragmentViewModelModule
+import id.shobrun.ukmmobile.di.user.ProfilePersistenceModule
 import id.shobrun.ukmmobile.di.user.UserNetworkModule
 import id.shobrun.ukmmobile.di.user.UserPersistenceModule
 import id.shobrun.ukmmobile.di.user.UserRepositoryModule
@@ -124,7 +125,8 @@ abstract class FragmentBuildersModule {
             ProfileViewModelModule::class,
             UserNetworkModule::class,
             UserPersistenceModule::class,
-            UserRepositoryModule::class
+            UserRepositoryModule::class,
+            ProfilePersistenceModule::class
         ]
     )
     abstract fun injectProfileFragment(): ProfileFragment
@@ -135,7 +137,8 @@ abstract class FragmentBuildersModule {
             LoginViewModelModule::class,
             UserNetworkModule::class,
             UserPersistenceModule::class,
-            UserRepositoryModule::class
+            UserRepositoryModule::class,
+            ProfilePersistenceModule::class
         ]
     )
     abstract fun injectLoginFragment(): LoginFragment
@@ -146,7 +149,8 @@ abstract class FragmentBuildersModule {
             RegisterViewModelModule::class,
             UserNetworkModule::class,
             UserPersistenceModule::class,
-            UserRepositoryModule::class
+            UserRepositoryModule::class,
+            ProfilePersistenceModule::class
         ]
     )
     abstract fun injectRegisterFragment(): RegisterFragment

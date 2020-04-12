@@ -7,23 +7,20 @@ import androidx.lifecycle.switchMap
 import id.shobrun.ukmmobile.models.Resource
 import id.shobrun.ukmmobile.models.Status
 import id.shobrun.ukmmobile.models.entity.Profile
-import id.shobrun.ukmmobile.models.entity.User
 import id.shobrun.ukmmobile.models.network.ProfileResponse
-import id.shobrun.ukmmobile.models.network.UsersResponse
 import id.shobrun.ukmmobile.repository.UserRepository
 import id.shobrun.ukmmobile.utils.AbsentLiveData
 import id.shobrun.ukmmobile.utils.SharedPref
 import id.shobrun.ukmmobile.utils.SharedPref.Companion.PREFS_IS_LOGIN
 import id.shobrun.ukmmobile.utils.SharedPref.Companion.PREFS_USER_EMAIL
 import id.shobrun.ukmmobile.utils.SharedPref.Companion.PREFS_USER_ID
-import id.shobrun.ukmmobile.utils.SharedPref.Companion.PREFS_USER_USERNAME
 import timber.log.Timber
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(repository: UserRepository, sharedPref: SharedPref) :
     ViewModel() {
 
-    val username = MutableLiveData<String>()
+    val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     private val loginAction = MutableLiveData<Boolean>()
     val registerAction = MutableLiveData<Boolean>()
@@ -40,9 +37,9 @@ class LoginViewModel @Inject constructor(repository: UserRepository, sharedPref:
         sharedPref.removeSharedPref()
         loginRespons = loginAction.switchMap {
             loginAction.value?.let {
-                username.value?.let {
+                email.value?.let {
                     password.value?.let {
-                        repository.loginUser(username.value!!, password.value!!)
+                        repository.loginUser(email.value!!, password.value!!)
                     }
                 }
 
@@ -60,8 +57,8 @@ class LoginViewModel @Inject constructor(repository: UserRepository, sharedPref:
                      * Login
                      */
                     sharedPref.setValue(PREFS_IS_LOGIN, true)
-                    sharedPref.setValue(PREFS_USER_ID, it.data.profile_id)
-                    sharedPref.setValue(PREFS_USER_EMAIL, it.data.user_email)
+                    sharedPref.setValue(PREFS_USER_ID, it.data.id)
+                    sharedPref.setValue(PREFS_USER_EMAIL, it.data.email)
                 }
             }
             MutableLiveData(isLoading)
@@ -73,18 +70,13 @@ class LoginViewModel @Inject constructor(repository: UserRepository, sharedPref:
     }
 
     fun clickLogin() {
-        val currentUsername = username.value
+        val currentEmail = email.value
         val currentPassword = password.value
-        if (currentPassword.isNullOrEmpty() || currentUsername.isNullOrEmpty()) {
+        if (currentPassword.isNullOrEmpty() || currentEmail.isNullOrEmpty()) {
             _snackbarText.value = "Please fill completely"
             return
         }
         if (loginAction.value == null) loginAction.value = true
         else loginAction.value = !loginAction.value!!
-    }
-
-    fun clickRegister() {
-        if (registerAction.value == null) registerAction.value = true
-        else registerAction.value = !registerAction.value!!
     }
 }

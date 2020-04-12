@@ -24,6 +24,7 @@ class EventRepository @Inject constructor(
             if (!items.result.isNullOrEmpty()) {
                 localDB.insert(items.result[0])
             }
+
         }
 
         override fun shouldFetch(data: Event?): Boolean {

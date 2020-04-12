@@ -12,6 +12,8 @@ import id.shobrun.ukmmobile.ui.myevents.detail.EventDetailActivity.Companion.EXT
 import id.shobrun.ukmmobile.ui.myevents.detail.EventDetailFragment
 import id.shobrun.ukmmobile.ui.myevents.detail.EventSummaryFragment
 import id.shobrun.ukmmobile.ui.myevents.detail.ParticipantEventFragment
+import id.shobrun.ukmmobile.ui.user.login.LoginFragment
+import id.shobrun.ukmmobile.ui.user.register.RegisterFragment
 
 
 private val TAB_TITLES = arrayOf(
@@ -33,8 +35,8 @@ class UserSignPagerAdapter(
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment
         
-        if(position==0) fragment = EventDetailFragment.newInstance()
-        else fragment = ParticipantEventFragment.newInstance()
+        if(position==0) fragment = LoginFragment.newInstance()
+        else fragment = RegisterFragment.newInstance()
 
         return fragment
 

@@ -13,7 +13,6 @@ import id.shobrun.ukmmobile.room.ProfileDao
 import id.shobrun.ukmmobile.room.UserDao
 import id.shobrun.ukmmobile.transporter.ProfileResponseTransporter
 import id.shobrun.ukmmobile.transporter.UserResponseTransporter
-import id.shobrun.ukmmobile.utils.Helper.md5
 import id.shobrun.ukmmobile.utils.Tools
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,8 +35,8 @@ class UserRepository @Inject constructor(
             if (profile != null) {
                 profileDB.deleteByEmail(email)
 
-                profile.user_email = email
-                profile.role_id = role?.id
+                profile.email = email
+                profile.roleId = role?.id
 
                 profileDB.insert(profile)
             }
@@ -71,7 +70,7 @@ class UserRepository @Inject constructor(
     }.asLiveData()
 
     fun registerUser(user: User,profile: Profile) = object :
-        NetworkBoundRepository<List<User>, UsersResponse, UserResponseTransporter>(appExecutors) {
+        NetworkBoundRepository<User, UsersResponse, UserResponseTransporter>(appExecutors) {
         override fun saveFetchData(items: UsersResponse) {
             if (items.result !=null ) {
                 Timber.d("${items.result}")
@@ -79,23 +78,23 @@ class UserRepository @Inject constructor(
             }
         }
 
-        override fun shouldFetch(data: List<User>?): Boolean {
+        override fun shouldFetch(data: User?): Boolean {
             return true
         }
 
-        override fun loadFromDb(): LiveData<List<User>> {
-            return localDB.getDetailUserByEmail(user.user_email)
+        override fun loadFromDb(): LiveData<User> {
+            return localDB.getDetailUserByEmail(user.email)
         }
 
         override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
-            val tempUser = user.copy()
-            val tempProfile = profile.copy()
             val data = hashMapOf(
-                "email" to tempUser.user_email,
-                "password" to tempUser.user_password,
-                "role_id" to tempUser.user_role_id,
-                "userprofile" to tempProfile
+                "userprofile" to profile,
+                "email" to user.email,
+                "password" to user.password,
+                "role_id" to user.roleId
             )
+            Timber.d(data.toString())
+
             return apiService.registerUser(data)
         }
 

@@ -104,6 +104,11 @@ object Helper {
         return intent
     }
     fun isValidEmail(target: CharSequence): String {
+        try {
+            Integer.parseInt(target.split("@")[0])
+        }catch (e: Throwable){
+            return ""
+        }
         return if (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()) EMAIL else ""
     }
 

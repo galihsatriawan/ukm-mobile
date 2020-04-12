@@ -51,6 +51,6 @@ object FakeData {
     )
 
     fun fakeUser() =
-        User(2, "galih", "galih@gmail.com", "galih", "085604044550", "Malang", "test", true)
+        User(2, "galih", "galih@gmail.com", "galih",1,1, "085604044550", "Malang", "test")
 
 }

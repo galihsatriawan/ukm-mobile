@@ -14,11 +14,11 @@ interface UserDao {
     @Query("SELECT * FROM $TABLE_USER WHERE $ID_USER = :id")
     fun getDetailUser(id: Int): LiveData<User>
 
-    @Query("SELECT * FROM $TABLE_USER WHERE USER_USERNAME = :username AND USER_PASSWORD = :password")
+    @Query("SELECT * FROM $TABLE_USER WHERE USERNAME = :username AND PASSWORD = :password")
     fun getDetailUserByUsername(username: String, password: String): LiveData<List<User>>
 
-    @Query("SELECT * FROM $TABLE_USER WHERE USER_EMAIL = :email ")
-    fun getDetailUserByEmail(email: String): LiveData<List<User>>
+    @Query("SELECT * FROM $TABLE_USER WHERE EMAIL = :email ")
+    fun getDetailUserByEmail(email: String): LiveData<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: User)
@@ -32,7 +32,7 @@ interface UserDao {
     @Query("DELETE FROM $TABLE_USER")
     fun delete()
 
-    @Query("DELETE FROM $TABLE_USER WHERE USER_USERNAME = :username")
+    @Query("DELETE FROM $TABLE_USER WHERE USERNAME = :username")
     fun deleteByEmail(username: String)
 
 }

@@ -31,10 +31,10 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
     val snackbarText: LiveData<String> = _snackbarText
     val loading: LiveData<Boolean>
     val isSuccess = MutableLiveData<Boolean>()
-    val registerResponse: LiveData<Resource<List<User>, UsersResponse>>
+    val registerResponse: LiveData<Resource<User, UsersResponse>>
 
     init {
-        registerResponse = userMutable.switchMap {
+        registerResponse = profileMutable.switchMap {
             userMutable.value?.let {user ->
                 profileMutable.value?.let {profile ->
                     repository.registerUser(user,profile)
@@ -43,13 +43,14 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
             } ?: AbsentLiveData.create()
         }
         loading = registerResponse.switchMap {
-            var isLoading = it.status == Status.LOADING
+            var isLoading = true
+            if(it!=null) isLoading= it.status == Status.LOADING
             if (!isLoading) {
                 Timber.d("${it.message ?: it.additionalData?.message}")
                 if (it.status == Status.ERROR) _snackbarText.value = "Please Check Your Connection"
                 else _snackbarText.value = it.additionalData?.message
-                if (!it.data.isNullOrEmpty()) isSuccess.value = true
-                Timber.d("${it.data?.size}")
+                if (it.data != null) isSuccess.value = true
+                Timber.d("${it.data}")
             }
             MutableLiveData(isLoading)
         }
@@ -91,12 +92,15 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
             currentEmail.subSequence(0,1).toString(),
             currentTelp,
             true,
+            "Male",
             "",
             Helper.getCurrentDatetime(),
             Helper.getCurrentDatetime(),
             1,
             currentEmail
         )
+        Timber.d(user.toString())
+        Timber.d(profile.toString())
         userMutable.value = user
         profileMutable.value = profile
     }
