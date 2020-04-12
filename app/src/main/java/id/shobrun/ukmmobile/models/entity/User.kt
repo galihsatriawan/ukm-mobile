@@ -12,12 +12,12 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     @PrimaryKey
     var id: Int?,
-    var username: String,
-    var password: String,
-    var email: String,
-    @SerializedName("profile_id")var profileId:Int,
+    var username: String?,
+    var password: String?,
+    var email: String?,
+    @SerializedName("profile_id")var profileId:Int?,
     @SerializedName("role_id")var roleId: Int?,
-    @SerializedName("role_value")var roleValue: String,
+    @SerializedName("role_value")var roleValue: String?,
     @SerializedName("created_at") var createdAt : String?,
     @SerializedName("update_at") var updateAt : String?
 

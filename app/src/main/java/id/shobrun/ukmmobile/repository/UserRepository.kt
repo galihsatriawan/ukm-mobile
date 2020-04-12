@@ -1,6 +1,7 @@
 package id.shobrun.ukmmobile.repository
 
 import androidx.lifecycle.LiveData
+import com.google.gson.Gson
 import id.shobrun.ukmmobile.AppExecutors
 import id.shobrun.ukmmobile.api.ApiResponse
 import id.shobrun.ukmmobile.api.UserApi
@@ -56,6 +57,7 @@ class UserRepository @Inject constructor(
                 "email" to email,
                 "password" to password
             )
+            Timber.d(Gson().toJson(data))
             return apiService.loginUser(data)
         }
 
@@ -83,17 +85,18 @@ class UserRepository @Inject constructor(
         }
 
         override fun loadFromDb(): LiveData<User> {
-            return localDB.getDetailUserByEmail(user.email)
+            return localDB.getDetailUserByEmail(user.email!!)
         }
 
         override fun fetchService(): LiveData<ApiResponse<UsersResponse>> {
             val data = hashMapOf(
                 "userprofile" to profile,
+                "id" to null,
                 "email" to user.email,
                 "password" to user.password,
                 "role_id" to user.roleId
             )
-            Timber.d(data.toString())
+            Timber.d(Gson().toJson(data))
 
             return apiService.registerUser(data)
         }

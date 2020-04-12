@@ -10,7 +10,7 @@ import id.shobrun.ukmmobile.utils.DateConverter
 
 @Database(
     entities = [Event::class, Invitation::class, Participant::class, User::class, Profile::class],
-    version = 15,
+    version = 16,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)

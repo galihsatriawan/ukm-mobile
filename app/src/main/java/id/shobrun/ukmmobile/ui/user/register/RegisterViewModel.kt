@@ -94,8 +94,8 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
             true,
             "Male",
             "",
-            Helper.getCurrentDatetime(),
-            Helper.getCurrentDatetime(),
+            null,
+            null,
             1,
             currentEmail
         )
